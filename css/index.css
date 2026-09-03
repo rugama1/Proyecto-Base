@@ -126,17 +126,24 @@ video#vidFondo {
 }
 .itemMostrado{
   width: 100%;
-  margin-top: 0.4rem;
+  margin-top: 0.8rem;
   display: flex;
   flex-flow: row wrap;
+  min-height: 225px;
 }
 .itemMostrado img{
   width: 100% !important;
-  height: 180px;
+  height: 225px;
   object-fit: cover;
 }
 .itemMostrado .card-image{
   width: 35%;
+}
+.itemMostrado .card-content{
+  padding: 18px;
+}
+.itemMostrado .card-content p{
+  margin: 0 0 5px;
 }
 .precioTexto{
   font-size: 1.3rem;
@@ -150,6 +157,8 @@ video#vidFondo {
 }
 .card-action{
   text-align: right;
+  color: #333;
+  font-weight: 500;
 }
 
 @media only screen and (max-width: 700px){
@@ -159,5 +168,8 @@ video#vidFondo {
   }
   .itemMostrado img{
     height: 150px;
+  }
+  .itemMostrado{
+    min-height: 0;
   }
 }

@@ -124,27 +124,37 @@ function mostrarResultados(inmuebles) {
     contenido.className = "card-stacked";
     var datos = document.createElement("div");
     datos.className = "card-content";
-    var direccion = document.createElement("h6");
-    direccion.textContent = inmueble.direccion;
-    var detalle = document.createElement("p");
-    detalle.textContent = inmueble.tipo + " en " + inmueble.ciudad +
-      " | Teléfono: " + inmueble.telefono + " | C.P.: " + inmueble.codigo_postal;
+    agregarDato(datos, "Dirección", inmueble.direccion);
+    agregarDato(datos, "Ciudad", inmueble.ciudad);
+    agregarDato(datos, "Teléfono", inmueble.telefono);
+    agregarDato(datos, "Código postal", inmueble.codigo_postal);
+    agregarDato(datos, "Tipo", inmueble.tipo);
     var precio = document.createElement("p");
     precio.className = "precioTexto";
-    precio.textContent = "$" + Number(inmueble.precio).toLocaleString("en-US");
-    datos.appendChild(direccion);
-    datos.appendChild(detalle);
+    var etiquetaPrecio = document.createElement("strong");
+    etiquetaPrecio.textContent = "Precio: ";
+    precio.appendChild(etiquetaPrecio);
+    precio.appendChild(document.createTextNode("$" + Number(inmueble.precio).toLocaleString("en-US")));
     datos.appendChild(precio);
 
     var accion = document.createElement("div");
     accion.className = "card-action";
-    accion.textContent = "Propiedad #" + inmueble.id;
+    accion.textContent = "VER MAS";
     contenido.appendChild(datos);
     contenido.appendChild(accion);
     resultado.appendChild(imagen);
     resultado.appendChild(contenido);
     contenedor.appendChild(resultado);
   });
+}
+
+function agregarDato(contenedor, etiqueta, valor) {
+  var dato = document.createElement("p");
+  var textoEtiqueta = document.createElement("strong");
+  textoEtiqueta.textContent = etiqueta + ": ";
+  dato.appendChild(textoEtiqueta);
+  dato.appendChild(document.createTextNode(valor));
+  contenedor.appendChild(dato);
 }
 
 document.getElementById("formulario").addEventListener("submit", buscarInmuebles);
