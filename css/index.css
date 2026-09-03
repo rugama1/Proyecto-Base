@@ -127,8 +127,9 @@ video#vidFondo {
   width: 100%;
   margin-top: 0.8rem;
   display: flex;
-  flex-flow: row wrap;
-  min-height: 225px;
+  flex-flow: row nowrap !important;
+  align-items: stretch;
+  height: 225px;
 }
 .itemMostrado img{
   width: 100% !important;
@@ -136,7 +137,9 @@ video#vidFondo {
   object-fit: cover;
 }
 .itemMostrado .card-image{
-  width: 35%;
+  width: 100% !important;
+  min-width: 0;
+  flex: 0 0 35%;
 }
 .itemMostrado .card-content{
   padding: 18px;
@@ -149,7 +152,12 @@ video#vidFondo {
   color: #ffab40;
 }
 .card-stacked{
-  width: 65%;
+  width: 100%;
+  min-width: 0;
+  flex: 1 1 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .card-content h6{
   font-weight: bold;
@@ -163,12 +171,15 @@ video#vidFondo {
 @media only screen and (max-width: 700px){
   .itemMostrado .card-image,
   .itemMostrado .card-stacked{
-    width: 100%;
+    width: 100% !important;
+    min-width: 100%;
   }
   .itemMostrado img{
     height: 150px;
   }
   .itemMostrado{
+    flex-flow: row wrap !important;
+    height: auto;
     min-height: 0;
   }
 }

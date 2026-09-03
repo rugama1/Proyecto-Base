@@ -111,7 +111,7 @@ function mostrarResultados(inmuebles) {
 
   inmuebles.forEach(function(inmueble) {
     var resultado = document.createElement("div");
-    resultado.className = "itemMostrado card horizontal";
+    resultado.className = "itemMostrado card";
 
     var imagen = document.createElement("div");
     imagen.className = "card-image";
