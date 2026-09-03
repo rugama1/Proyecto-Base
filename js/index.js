@@ -53,28 +53,37 @@ playVideoOnScroll();
 cargarCiudades();
 
 function cargarCiudades() {
-  fetch("buscador.php?accion=ciudades")
-    .then(function(respuesta) {
-      if (!respuesta.ok) {
-        throw new Error("No se pudieron cargar las ciudades");
-      }
-      return respuesta.json();
-    })
-    .then(function(ciudades) {
-      var selectCiudad = document.getElementById("selectCiudad");
-
-      ciudades.forEach(function(ciudad) {
-        var opcion = document.createElement("option");
-        opcion.value = ciudad;
-        opcion.textContent = ciudad;
-        selectCiudad.appendChild(opcion);
-      });
-
+  Promise.all([
+    obtenerOpciones("ciudades"),
+    obtenerOpciones("tipos")
+  ])
+    .then(function(opciones) {
+      agregarOpciones(document.getElementById("selectCiudad"), opciones[0]);
+      agregarOpciones(document.getElementById("selectTipo"), opciones[1]);
       $("select").material_select();
     })
     .catch(function(error) {
       console.error(error);
     });
+}
+
+function obtenerOpciones(accion) {
+  return fetch("buscador.php?accion=" + accion)
+    .then(function(respuesta) {
+      if (!respuesta.ok) {
+        throw new Error("No se pudieron cargar las opciones de " + accion);
+      }
+      return respuesta.json();
+    });
+}
+
+function agregarOpciones(select, opciones) {
+  opciones.forEach(function(valor) {
+    var opcion = document.createElement("option");
+    opcion.value = valor;
+    opcion.textContent = valor;
+    select.appendChild(opcion);
+  });
 }
 
 function buscarInmuebles(evento) {

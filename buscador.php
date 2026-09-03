@@ -9,6 +9,12 @@ if (($_REQUEST['accion'] ?? '') === 'ciudades') {
     exit;
 }
 
+if (($_REQUEST['accion'] ?? '') === 'tipos') {
+    $sentencia = $pdo->query('SELECT DISTINCT tipo FROM inmuebles ORDER BY tipo');
+    echo json_encode($sentencia->fetchAll(PDO::FETCH_COLUMN), JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 $condiciones = [];
 $parametros = [];
 
