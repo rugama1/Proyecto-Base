@@ -131,7 +131,12 @@ video#vidFondo {
   flex-flow: row wrap;
 }
 .itemMostrado img{
-  width: 35% !important;
+  width: 100% !important;
+  height: 180px;
+  object-fit: cover;
+}
+.itemMostrado .card-image{
+  width: 35%;
 }
 .precioTexto{
   font-size: 1.3rem;
@@ -140,6 +145,19 @@ video#vidFondo {
 .card-stacked{
   width: 65%;
 }
+.card-content h6{
+  font-weight: bold;
+}
 .card-action{
   text-align: right;
+}
+
+@media only screen and (max-width: 700px){
+  .itemMostrado .card-image,
+  .itemMostrado .card-stacked{
+    width: 100%;
+  }
+  .itemMostrado img{
+    height: 150px;
+  }
 }

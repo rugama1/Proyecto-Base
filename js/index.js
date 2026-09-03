@@ -111,10 +111,38 @@ function mostrarResultados(inmuebles) {
 
   inmuebles.forEach(function(inmueble) {
     var resultado = document.createElement("div");
-    resultado.className = "itemMostrado card-panel";
-    resultado.innerHTML = "<strong>" + inmueble.direccion + "</strong> - " +
-      inmueble.ciudad + " - " + inmueble.tipo + " - $" +
-      Number(inmueble.precio).toLocaleString("en-US");
+    resultado.className = "itemMostrado card horizontal";
+
+    var imagen = document.createElement("div");
+    imagen.className = "card-image";
+    var foto = document.createElement("img");
+    foto.src = "img/home.jpg";
+    foto.alt = "Propiedad en " + inmueble.ciudad;
+    imagen.appendChild(foto);
+
+    var contenido = document.createElement("div");
+    contenido.className = "card-stacked";
+    var datos = document.createElement("div");
+    datos.className = "card-content";
+    var direccion = document.createElement("h6");
+    direccion.textContent = inmueble.direccion;
+    var detalle = document.createElement("p");
+    detalle.textContent = inmueble.tipo + " en " + inmueble.ciudad +
+      " | Teléfono: " + inmueble.telefono + " | C.P.: " + inmueble.codigo_postal;
+    var precio = document.createElement("p");
+    precio.className = "precioTexto";
+    precio.textContent = "$" + Number(inmueble.precio).toLocaleString("en-US");
+    datos.appendChild(direccion);
+    datos.appendChild(detalle);
+    datos.appendChild(precio);
+
+    var accion = document.createElement("div");
+    accion.className = "card-action";
+    accion.textContent = "Propiedad #" + inmueble.id;
+    contenido.appendChild(datos);
+    contenido.appendChild(accion);
+    resultado.appendChild(imagen);
+    resultado.appendChild(contenido);
     contenedor.appendChild(resultado);
   });
 }
