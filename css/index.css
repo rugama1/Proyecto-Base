@@ -1,13 +1,12 @@
 video#vidFondo {
     position: fixed;
-    min-width: 100%;
-    min-height: 100%;
-    width: 100%;
-    height: auto;
+  width: 100vw;
+  height: 100vh;
     z-index: -100;
     left: 0;
     top: 0;
-    background-size: cover;
+  object-fit: cover;
+  background: #dbe5e8;
 
 }
 
