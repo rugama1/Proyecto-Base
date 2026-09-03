@@ -50,3 +50,43 @@ function playVideoOnScroll(){
 
 inicializarSlider();
 playVideoOnScroll();
+
+function buscarInmuebles(evento) {
+  evento.preventDefault();
+  var parametros = new URLSearchParams(new FormData(document.getElementById("formulario")));
+
+  fetch("buscador.php?" + parametros.toString())
+    .then(function(respuesta) {
+      if (!respuesta.ok) {
+        throw new Error("La búsqueda no pudo completarse");
+      }
+      return respuesta.json();
+    })
+    .then(mostrarResultados)
+    .catch(function(error) {
+      console.error(error);
+    });
+}
+
+function mostrarResultados(inmuebles) {
+  var contenedor = document.querySelector(".colContenido");
+  contenedor.querySelectorAll(".itemMostrado").forEach(function(elemento) {
+    elemento.remove();
+  });
+
+  inmuebles.forEach(function(inmueble) {
+    var resultado = document.createElement("div");
+    resultado.className = "itemMostrado card-panel";
+    resultado.innerHTML = "<strong>" + inmueble.direccion + "</strong> - " +
+      inmueble.ciudad + " - " + inmueble.tipo + " - $" +
+      Number(inmueble.precio).toLocaleString("en-US");
+    contenedor.appendChild(resultado);
+  });
+}
+
+document.getElementById("formulario").addEventListener("submit", buscarInmuebles);
+document.getElementById("mostrarTodos").addEventListener("click", function() {
+  document.getElementById("selectCiudad").value = "";
+  document.getElementById("selectTipo").value = "";
+  buscarInmuebles({ preventDefault: function() {} });
+});
