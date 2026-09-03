@@ -3,6 +3,12 @@
 require __DIR__ . '/conexion.php';
 header('Content-Type: application/json; charset=utf-8');
 
+if (($_REQUEST['accion'] ?? '') === 'ciudades') {
+    $sentencia = $pdo->query('SELECT DISTINCT ciudad FROM inmuebles ORDER BY ciudad');
+    echo json_encode($sentencia->fetchAll(PDO::FETCH_COLUMN), JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 $condiciones = [];
 $parametros = [];
 

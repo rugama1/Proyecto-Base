@@ -50,6 +50,32 @@ function playVideoOnScroll(){
 
 inicializarSlider();
 playVideoOnScroll();
+cargarCiudades();
+
+function cargarCiudades() {
+  fetch("buscador.php?accion=ciudades")
+    .then(function(respuesta) {
+      if (!respuesta.ok) {
+        throw new Error("No se pudieron cargar las ciudades");
+      }
+      return respuesta.json();
+    })
+    .then(function(ciudades) {
+      var selectCiudad = document.getElementById("selectCiudad");
+
+      ciudades.forEach(function(ciudad) {
+        var opcion = document.createElement("option");
+        opcion.value = ciudad;
+        opcion.textContent = ciudad;
+        selectCiudad.appendChild(opcion);
+      });
+
+      $("select").material_select();
+    })
+    .catch(function(error) {
+      console.error(error);
+    });
+}
 
 function buscarInmuebles(evento) {
   evento.preventDefault();
